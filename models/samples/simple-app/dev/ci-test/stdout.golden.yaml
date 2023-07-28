@@ -1,0 +1,11 @@
+resources:
+- id: v1:Namespace:simple-app
+  type: Kubernetes
+  attributes:
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      creationTimestamp: null
+      name: simple-app
+    spec: {}
+    status: {}

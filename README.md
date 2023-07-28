@@ -1,2 +1,2 @@
-# spec-generator
-Generate the Kusion Spec from Konfig Models
+# Model Catalog
+Kusion Models and related generators

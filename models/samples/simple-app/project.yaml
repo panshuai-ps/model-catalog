@@ -1,0 +1,4 @@
+# The project basic info
+name: simple-app
+generator:
+  type: AppConfiguration

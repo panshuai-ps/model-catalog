@@ -1,0 +1,5 @@
+kcl_options:
+  - key: app
+    value: simple-app
+  - key: env
+    value: dev
