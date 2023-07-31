@@ -1,4 +1,6 @@
-import models.schema.v1.component as c
+import models.schema.v1.component.workload as wl
+import models.schema.v1.component.container as container
+import models.schema.v1.component as cmp
 
 schema AppConfiguration:
     """ AppConfiguration is a developer-centric definition that describes how to run an Application.
@@ -18,10 +20,24 @@ schema AppConfiguration:
     appConfiguration = ac.AppConfiguration {
         components: {
             "proxy": cmp.Component {
-                containers: {
-                    "nginx": c.Container {
-                        image: "nginx:v1"
+                workload: wl.LongRunningService{
+                    containers: {
+                        "nginx": container.Container {
+                            image: "nginx:v1"
+                        }
                     }
+                }
+            }
+            "hello": cmp.Component {
+                workload: wl.Job {
+                    container: c.Container{
+                        image:   "busybox:1.28"
+                        command: ["/bin/sh", "-c", "echo hello"]
+                        env: {
+                            "name": "value"
+                        }
+                    }
+                    schedule: "0 0 13 * 5"
                 }
             }
         }
@@ -32,4 +48,4 @@ schema AppConfiguration:
 
     # Component defines the delivery artifact of one application.
     # Each application can be composed by multiple components.
-    components:                 {str:c.Component}
+    components:                 {str:cmp.Component}

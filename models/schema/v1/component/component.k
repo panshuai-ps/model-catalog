@@ -1,4 +1,4 @@
-import models.schema.v1.component.container as c
+import models.schema.v1.component.workload as wl
 
 schema Component:
     """ Component defines the delivery artifact of one application. Each component
@@ -25,10 +25,13 @@ schema Component:
     Instantiate a long-running service Component with "nginx:v1" image and customized labels.
 
     component = cmp.Component {
-        containers: {
-            "nginx": c.Container {
-                image: "nginx:v1"
+        workload: wl.LongRunningService{
+            containers: {
+                "nginx": c.Container {
+                    image: "nginx:v1"
+                }
             }
+            replicas: 2
         }
         labels: {
             "key": "value"
@@ -36,11 +39,8 @@ schema Component:
     }
     """
 
-    # The templates of containers to be ran.
-    containers: {str:c.Container}
-    # The number of containers that should be ran.
-    # Default is 2 to meet high availability requirements.
-    replicas: int = 2
+    # The Workload is a specification of how the container(s) should be run.
+    workload:                   wl.LongRunningService | wl.Job
 
     ###### List of Workload supporting accessory. Accessory defines various runtime capabilities and operation functionalities.
 
